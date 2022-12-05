@@ -11,3 +11,4 @@ heroku3
 pynewtonmath
 pytz
 aiohttp
+psycopg2>=2.7 --no-binary psycopg2
