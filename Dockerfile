@@ -1,12 +1,11 @@
-FROM python:3.10-slim-buster
+FROM anasty17/mltb:latest
 
-RUN apt update && apt upgrade -y
-RUN apt install git -y
-COPY requirements.txt /requirements.txt
+WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/app
 
-RUN cd /
-RUN pip3 install -U pip && pip3 install -U -r requirements.txt
-RUN mkdir /Eva
-WORKDIR /Eva
-COPY start.sh /start.sh
-CMD ["/bin/bash", "/start.sh"]
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["bash", "start.sh"]
