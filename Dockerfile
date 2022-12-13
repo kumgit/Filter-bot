@@ -1,14 +1,13 @@
-FROM codewithweeb/weebzone:stable
+FROM python:3.10
 
-WORKDIR /usr/src/app
-RUN chmod 777 /usr/src/app
+RUN apt update && apt upgrade -y
+RUN apt install git -y
+COPY requirements.txt /requirements.txt
 
-RUN apt -qq update --fix-missing && \
-    apt -qq install -y \
-    mediainfo
+RUN cd /
+RUN pip install -U pip && pip install -U -r requirements.txt
+WORKDIR /app
 
 COPY . .
-RUN pip3 install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get upgrade -y
 
-CMD ["bash", "start.sh"]
+CMD ["python", "bot.py"]
